@@ -1,6 +1,7 @@
-import { User } from "../../../domain/user/entity/user";
-import { Address } from "../../../domain/user/value-object/address";
-import { prisma } from "../../db/prisma/primsa";
+import { v4 as uuidv4 } from "uuid";
+import { User } from "../../../../domain/user/entity/user";
+import { Address } from "../../../../domain/user/value-object/address";
+import { prisma } from "../../../db/prisma/primsa";
 import type { UserRepositoryInterface } from "./user-repository.interface";
 
 export class UserRepository implements UserRepositoryInterface {
@@ -40,8 +41,27 @@ export class UserRepository implements UserRepositoryInterface {
 		return userEntity;
 	}
 
-	create(entity: User): Promise<void> {
-		throw new Error("Method not implemented.");
+	async create(entity: User): Promise<void> {
+		const address = await prisma.address.create({
+			data: {
+				city: entity.address.city,
+				postalCode: entity.address.postal_code,
+				country: entity.address.country,
+				state: entity.address.state,
+				street: entity.address.street,
+				id: uuidv4(),
+			},
+		});
+		await prisma.user.create({
+			data: {
+				id: entity.id,
+				email: entity.email,
+				name: entity.name,
+				password: entity.password,
+				addressId: address.id,
+				created_at: new Date(),
+			},
+		});
 	}
 	update(entity: User): Promise<void> {
 		throw new Error("Method not implemented.");

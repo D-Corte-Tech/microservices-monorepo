@@ -1,5 +1,5 @@
 import Entity from "../../@shared/entity/entity.abstract";
-import { UserZodValidator } from "../validators/user.zod.validator";
+import { UserValidatorFactory } from "../factory/user-validator.factory";
 import type { Address } from "../value-object/address";
 
 export class User extends Entity {
@@ -32,8 +32,7 @@ export class User extends Entity {
 	}
 
 	validate() {
-		const userValidator = new UserZodValidator();
-		userValidator.validate(this);
+		UserValidatorFactory.create().validate(this);
 	}
 
 	activate() {
@@ -43,5 +42,18 @@ export class User extends Entity {
 
 	get password() {
 		return this._password;
+	}
+	get email() {
+		return this._password;
+	}
+	get name() {
+		return this._password;
+	}
+	get activated_at() {
+		return this._password;
+	}
+
+	get address() {
+		return this._address;
 	}
 }
