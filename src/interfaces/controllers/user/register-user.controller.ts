@@ -5,7 +5,7 @@ import type { RegisterUserDTO } from "../../../use-case/user/create/create-user.
 import { RegisterUserUseCase } from "../../../use-case/user/create/create-user.usecase";
 
 export class RegisterUserController {
-	async create(c: Context<BlankEnv, "/", BlankInput>) {
+	async register(c: Context<BlankEnv, "/", BlankInput>) {
 		try {
 			const input = await c.req.json<RegisterUserDTO>();
 
@@ -19,7 +19,6 @@ export class RegisterUserController {
 					country: input.address.country,
 					state: input.address.state,
 					street: input.address.street,
-					user_id: input.address.user_id,
 				},
 			};
 
@@ -28,7 +27,7 @@ export class RegisterUserController {
 
 			return new Response(JSON.stringify(result));
 		} catch (err: any) {
-			return new Response(JSON.stringify({ message: err.message }), {
+			return new Response(err, {
 				status: 400,
 			});
 		}

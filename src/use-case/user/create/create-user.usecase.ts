@@ -3,6 +3,7 @@ import { v4 as uuid } from "uuid";
 import { User } from "../../../domain/user/entity/user";
 import { Address } from "../../../domain/user/value-object/address";
 import type { UserRepositoryInterface } from "../../../infra/user/repository/prisma/user-repository.interface";
+import { Hash } from "../../../utils/hash";
 import type { RegisterUserDTO } from "./create-user.dto";
 
 export class RegisterUserUseCase {
@@ -13,6 +14,8 @@ export class RegisterUserUseCase {
 	}
 
 	async execute(input: RegisterUserDTO) {
+		const hash = new Hash();
+
 		const address = new Address(
 			uuid(),
 			input.address.street,
@@ -21,10 +24,11 @@ export class RegisterUserUseCase {
 			input.address.postal_code,
 			input.address.country,
 		);
+		const hashedPassword = await hash.execute(input.password, "secret");
 		const user = new User(
 			uuid(),
 			input.email,
-			input.password,
+			hashedPassword,
 			input.name,
 			input.activated_at ?? null,
 			address,

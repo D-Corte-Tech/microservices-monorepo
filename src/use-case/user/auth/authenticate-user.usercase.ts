@@ -24,11 +24,12 @@ export class AuthenticateUser {
 			throw new Error("Invalid email or password");
 		}
 
-		const token = sign(
+		const token = await sign(
 			{ id: user.id, exp: Math.floor(Date.now() / 1000) + 60 * 60 },
 			"your_jwt_secret",
 			"HS256",
 		);
+		console.log(token);
 		return { user, token };
 	}
 }

@@ -44,13 +44,13 @@ export class User extends Entity {
 		return this._password;
 	}
 	get email() {
-		return this._password;
+		return this._email;
 	}
 	get name() {
-		return this._password;
+		return this._name;
 	}
 	get activated_at() {
-		return this._password;
+		return this._activated_at;
 	}
 
 	get address() {

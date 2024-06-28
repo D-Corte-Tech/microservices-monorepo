@@ -20,7 +20,6 @@ export class UserRepository implements UserRepositoryInterface {
 			throw new Error("User has not address, please update user.");
 
 		const address = new Address(
-			user.address.id,
 			user.id,
 			user.address.street,
 			user.address.city,

@@ -16,7 +16,10 @@ compatibility_flags = ["nodejs_compat"]
 # - https://developers.cloudflare.com/workers/wrangler/configuration/#environment-variables
 # Note: Use secrets to store sensitive data.
 # - https://developers.cloudflare.com/workers/configuration/secrets/
-# [vars]
+[vars]
+DATABASE_URL = "prisma://accelerate.prisma-data.net/?api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5IjoiZWQ3MWY0YzktZThkZi00ZDlkLThkNDYtMTY3ZmE4OWY3YzlhIiwidGVuYW50X2lkIjoiZWI0MmI4ODRjYWQ1YmUxOGIwYjIyMjljNTZiMzU4MzNhYjY5YTM0Mjg2NmNlODc3ZGE4N2Q2ZWYyYmQ5MzljNyIsImludGVybmFsX3NlY3JldCI6IjdhNmI5ZmM1LTA2MGYtNDU4NC1iM2MzLTA2Y2JlYjBkOWZmNSJ9.QHowG7T-DfUqKSvXdgtzh4zFHa7FTCTC-wDvKcRzEPA"
+DIRECT_DATABASE_URL = "postgres://uploadpg_user:ZDXHhaGLFuoTqoZjoqXaP7iWxCv3rjYj@dpg-cpprf608fa8c739ksrag-a.oregon-postgres.render.com/uploadpg"
+
 # MY_VARIABLE = "production_value"
 
 # Bind the Workers AI model catalog. Run machine learning models, powered by serverless GPUs, on Cloudflare’s global network
