@@ -4,7 +4,6 @@ import type { User } from "../entity/user";
 
 export class UserZodValidator implements ValidatorInterface<User> {
 	validate(entity: User) {
-		console.log(entity);
 		const userSchema = z.object({
 			email: z.string().email().min(4),
 			password: z.string().min(8),

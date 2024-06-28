@@ -29,7 +29,6 @@ export class AuthenticateUser {
 			"your_jwt_secret",
 			"HS256",
 		);
-		console.log(token);
 		return { user, token };
 	}
 }

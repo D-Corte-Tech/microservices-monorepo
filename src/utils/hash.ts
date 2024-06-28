@@ -2,9 +2,7 @@ export class Hash {
 	async execute(value: string, SECRET_KEY: string): Promise<string> {
 		const secretKey = new TextEncoder().encode(SECRET_KEY);
 
-		const message = "message-to-hash";
-
-		const messageBuffer = new TextEncoder().encode(message);
+		const messageBuffer = new TextEncoder().encode(value);
 
 		const key = await crypto.subtle.importKey(
 			"raw",
