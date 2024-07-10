@@ -13,7 +13,7 @@ export class RegisterUserUseCase {
 		this.userRepository = userRepository;
 	}
 
-	async execute(input: RegisterUserDTO) {
+	async execute(input: RegisterUserDTO, JWT_SECRET: string) {
 		const hash = new Hash();
 
 		const address = new Address(
@@ -24,7 +24,7 @@ export class RegisterUserUseCase {
 			input.address.postal_code,
 			input.address.country,
 		);
-		const hashedPassword = await hash.execute(input.password, "secret");
+		const hashedPassword = await hash.execute(input.password, JWT_SECRET);
 		const user = new User(
 			uuid(),
 			input.email,

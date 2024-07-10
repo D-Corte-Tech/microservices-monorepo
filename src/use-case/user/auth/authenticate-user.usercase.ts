@@ -10,14 +10,14 @@ export class AuthenticateUser {
 		this.userRepository = userRepository;
 	}
 
-	async execute(input: AuthenticateUserDTO) {
+	async execute(input: AuthenticateUserDTO, JWT_SECRET: string) {
 		const comparePassword = new ComparePassword();
 
 		const user = await this.userRepository.findByEmail(input.email);
 
 		const isPasswordValid = await comparePassword.execute(
 			{ password: input.password, encrypted_password: user.password },
-			"",
+			JWT_SECRET,
 		);
 
 		if (!user || !isPasswordValid) {

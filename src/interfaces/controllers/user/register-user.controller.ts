@@ -23,10 +23,11 @@ export class RegisterUserController {
 			};
 
 			const usercase = new RegisterUserUseCase(new UserRepository());
-			const result = await usercase.execute(RegisterUserDto);
+			const result = await usercase.execute(RegisterUserDto, c.env.JWT_SECRET);
 
 			return new Response(JSON.stringify(result));
 		} catch (err: any) {
+			console.error(err);
 			return new Response(JSON.stringify({ message: err.message }), {
 				status: 400,
 			});
