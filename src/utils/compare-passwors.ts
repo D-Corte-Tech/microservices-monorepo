@@ -6,12 +6,10 @@ export class ComparePassword {
 			password: string;
 			encrypted_password: string;
 		},
-		JWT_SECRET?: string,
+		JWT_SECRET: string,
 	) {
 		const hash = new Hash();
-		const hashedPassword = await hash.execute(request.password, "secret");
-
-		console.log(hashedPassword, request.encrypted_password);
+		const hashedPassword = await hash.execute(request.password, JWT_SECRET);
 
 		return hashedPassword === request.encrypted_password;
 	}

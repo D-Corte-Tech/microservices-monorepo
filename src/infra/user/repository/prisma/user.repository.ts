@@ -41,6 +41,11 @@ export class UserRepository implements UserRepositoryInterface {
 	}
 
 	async create(entity: User): Promise<void> {
+		const userVerifier = await this.findByEmail(entity.email);
+
+		if (userVerifier.email.length >= 1)
+			throw new Error("User email already registered");
+
 		const address = await prisma.address.create({
 			data: {
 				city: entity.address.city,
@@ -51,6 +56,7 @@ export class UserRepository implements UserRepositoryInterface {
 				id: uuidv4(),
 			},
 		});
+
 		await prisma.user.create({
 			data: {
 				id: entity.id,

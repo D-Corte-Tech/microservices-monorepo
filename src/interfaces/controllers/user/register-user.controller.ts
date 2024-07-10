@@ -27,7 +27,7 @@ export class RegisterUserController {
 
 			return new Response(JSON.stringify(result));
 		} catch (err: any) {
-			return new Response(err, {
+			return new Response(JSON.stringify({ message: err.message }), {
 				status: 400,
 			});
 		}
