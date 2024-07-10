@@ -25,7 +25,7 @@ model User {
   deleted_at   DateTime?
   activated_at DateTime?
 
-  @@map("user")
+  @@map("users")
 }
 
 model Company {
@@ -36,7 +36,7 @@ model Company {
   addressId String?  @map("address_id")
   address   Address? @relation(fields: [addressId], references: [id])
 
-  @@map("company")
+  @@map("companies")
 }
 
 model FisicPerson {
@@ -45,7 +45,7 @@ model FisicPerson {
   user     User   @relation(fields: [userId], references: [id])
 
   @@id([document, userId])
-  @@map("fisic_person")
+  @@map("fisic_persons")
 }
 
 model Address {
@@ -58,5 +58,5 @@ model Address {
   users      User[]
   companies  Company[]
 
-  @@map("address")
+  @@map("addresses")
 }
