@@ -24,17 +24,22 @@ model User {
   created_at   DateTime
   deleted_at   DateTime?
   activated_at DateTime?
+  Process      Process[]
+  Order        Order[]
+  Service      Service[]
 
   @@map("users")
 }
 
 model Company {
-  id        String   @id
-  document  String   @unique
-  userId    String   @map("user_id")
-  user      User     @relation(fields: [userId], references: [id])
-  addressId String?  @map("address_id")
-  address   Address? @relation(fields: [addressId], references: [id])
+  id        String    @id
+  document  String    @unique
+  userId    String    @map("user_id")
+  user      User      @relation(fields: [userId], references: [id])
+  addressId String?   @map("address_id")
+  address   Address?  @relation(fields: [addressId], references: [id])
+  Process   Process[]
+  Order     Order[]
 
   @@map("companies")
 }
@@ -59,4 +64,57 @@ model Address {
   companies  Company[]
 
   @@map("addresses")
+}
+
+model Process {
+  id            String      @id
+  imageQuantity Int         @map("image_quantity")
+  assetsUrl     String?     @map("assets_url")
+  status        String      @default("IDLE")
+  result        String?
+  userId        String?     @map("user_id")
+  user          User?       @relation(fields: [userId], references: [id])
+  companyId     String?     @map("company_id")
+  company       Company?    @relation(fields: [companyId], references: [id])
+  services      Service[]
+  orderItems    OrderItem[]
+
+  @@map("processes")
+}
+
+model Order {
+  id         String      @id
+  createdAt  DateTime    @map("created_at")
+  userId     String?     @map("user_id")
+  user       User?       @relation(fields: [userId], references: [id])
+  companyId  String?     @map("company_id")
+  company    Company?    @relation(fields: [companyId], references: [id])
+  orderItems OrderItem[]
+
+  @@map("orders")
+}
+
+model OrderItem {
+  id         Int       @id @default(autoincrement())
+  totalPrice Float     @map("total_price")
+  orderId    String    @map("order_id")
+  order      Order     @relation(fields: [orderId], references: [id])
+  serviceId  String    @map("service_id")
+  service    Process   @relation(fields: [serviceId], references: [id])
+  services   Service[]
+
+  @@map("order_items")
+}
+
+model Service {
+  id          String     @id
+  createdAt   DateTime   @map("created_at")
+  userId      String?    @map("user_id")
+  user        User?      @relation(fields: [userId], references: [id])
+  processId   String?    @map("process_id")
+  process     Process?   @relation(fields: [processId], references: [id])
+  orderItemId Int?       @map("order_item_id")
+  orderItem   OrderItem? @relation(fields: [orderItemId], references: [id])
+
+  @@map("services")
 }

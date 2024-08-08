@@ -1,9 +1,7 @@
 export default abstract class Entity {
-  protected _id!: string;
+	protected _id!: string;
 
-  constructor() { }
-
-  get id(): string {
-    return this._id;
-  }
+	get id(): string {
+		return this._id;
+	}
 }
